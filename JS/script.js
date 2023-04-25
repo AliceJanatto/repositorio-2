@@ -197,3 +197,15 @@ var dados_tabela = [
     ['estado', 'casos'],
     ['0', 0]
 ];
+
+
+//function carregarTodos(){
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(event){
+        carregarDadosMapa();
+        carregarDadosPizza();
+        carregarDadosTabela();
+    }
+)
