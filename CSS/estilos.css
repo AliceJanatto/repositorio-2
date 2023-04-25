@@ -1,0 +1,99 @@
+body {
+    background-color: rgba(32, 178, 171, 0.300);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+header {
+    height: auto;
+    background-image: url(https://www.prefeitura.sp.gov.br/cidade/secretarias/upload/meio_ambiente/Coroonavirus%20900x300.jpg);
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+}
+
+#img-linha {
+    width: 100%;
+    height: auto;
+}
+
+nav {
+    text-align: right;
+    background-color: rgba(32, 178, 171, 0.700);
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+#logo {
+    width: 280px;
+    height: 240px;
+}
+
+#conteiner {
+    width: 1200px;
+    margin: 0px auto;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    background-color: rgba(32, 178, 171, 0.400);
+    margin: 90px;
+    text-shadow: 2px 2px 3px black;
+}
+
+h3,
+h2 {
+    margin: 35px 0px;
+}
+
+#div-erro {
+    background-color: rgba(255, 0, 0, 0.200);
+    color: black;
+    padding: 10px 10px;
+    border: none;
+}
+
+.area-covid {
+    height: 450px;
+    margin-bottom: 50px;
+}
+
+#btnObterDados {
+    padding: 10px 25px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(0, 164, 0);
+    color: white;
+    font-size: 17px;
+    text-shadow: 1px 2px 2px rgb(0, 102, 0);
+    cursor: pointer;
+}
+
+#tabela-casos {
+    width: 500px;
+    margin: 0px auto;
+    text-align: center;
+    margin-top: 35px;
+}
+
+th {
+    background-color: rgb(0, 132, 53);
+    color: white;
+    text-shadow: 1px 2px 2px rgb(0, 102, 0);
+    border-radius: 10px;
+    border: none;
+    padding: 2px 10px;
+}
+
+.listra {
+    background-color: rgb(50, 250, 70);
+}

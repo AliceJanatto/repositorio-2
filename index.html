@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="CSS/estilos.css" />
+
+    <title>Informativo COVID-19</title>
+</head>
+<header>
+    <div id="header"><!--inicio da div header-->
+
+        <div id="titulo"><!--inicio da div titulo-->
+            <h1>POSTO DE INFORMAÇÕES SOBRE A PANDEMIA DE COVID-19</h1>
+        </div><!--fim da div titulo-->
+
+    </div><!--fim da div header-->
+
+    <nav>
+        <a href="index.html"> Home</a>
+        <a href="sobre.html"> Sobre nós</a>
+        <a href="equipe.html"> Equipe</a>
+    </nav>
+
+</header>
+
+<body>
+    <div id="conteiner">
+        <h3>
+            Este site tem como objetivo informar aos cidadãos brasileiros
+            dados sobre a pandemia da COVID-19
+        </h3>
+
+        <div id="div-erro"></div>
+
+        <div id="dados">
+            <h2>Dados da pandemia no mundo:</h2>
+
+            <p>
+                <button id="btnObterDados" type="button" onclick="carregarDados();">
+                    Obter dados
+                </button>
+            </p>
+
+            <div id="grafico-casos" class="area-covid"></div>
+
+        </div>
+
+        <div id="grafico-pizza"></div>
+
+        <table id="tabela-casos">
+            <thead>
+                <tr>
+                    <th>Sigla</th>
+                    <th>Estado</th>
+                    <th>Casos</th>
+                    <th>Mortes</th>
+                    <th>Suspeitos</th>
+                    <th>Descartados</th>
+                </tr>
+            </thead>
+            <tbody id="linhas"></tbody>
+        </table>
+
+    </div>
+</body>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/Javascript" src="JS/script.js"></script>
+
+</html>
