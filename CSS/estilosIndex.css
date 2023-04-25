@@ -97,3 +97,8 @@ th {
 .listra {
     background-color: rgb(113, 255, 127);
 }
+
+#grafico-pizza {
+    width: 1000px;
+    height: 500px;
+}

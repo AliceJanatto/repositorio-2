@@ -79,26 +79,60 @@ async function carregarDadosPizza() {
     //chamar API para obter dados------------------------------//
     await fetch('https://covid19-brazil-api.now.sh/api/report/v1/countries')
         .then(response => response.json())      //recebendo a resposta
-        .then(dados => prepararDadosTabela(dados))    //preparando os dados
+        .then(dados => prepararDadosPizza(dados))    //preparando os dados
         .catch(e => exibirErro(e.mensagem));    //mostrando o erro
 }
 
 
-google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(desenharGraficoPizza);
+//função para preparar e exibir os dados -------------------------------------------------//
+function prepararDadosPizza(dados) {
+    //console.table(dados['data'])
+    if (dados['data'].length > 0) {    //só faz alguma coisa se tiver dados
 
-      function desenharGraficoPizza() {
+        //esvaziando as variáveis de dados
+        dados_graficoPizza = [['status', 'total']];
 
-        let data = google.visualization.arrayToDataTable(dados_graficoPizza);
+        //variáveis para acumular casos
+        let casos = 0;
 
-        let options = {
-          title: 'Casos de Covid-19'
-        };
+        //laço para percorrer todos os dados obtidos
+        let qtConfirmados = 0;
+        let qtMortes = 0;
+        let qtRecuperados = 0;
 
-        let chart = new google.visualization.PieChart(document.getElementById('grafico-pizza'));
+        for (let i = 0; i < dados['data'].length; i++) {
+            qtConfirmados = qtConfirmados + dados['data'][i].confirmed;
+            qtMortes = qtMortes + dados['data'][i].deaths;
+            qtRecuperados = qtRecuperados + dados['data'][i].recovered;        
+        }
 
-        chart.draw(data, options);
-      }
+        console.table(dados_graficoPizza);
+         //adicionar registro na variável de dados(mapa mundi)
+         dados_graficoPizza.push(["Confirmados", qtConfirmados]);
+        dados_graficoPizza.push(["mortes", qtMortes]);
+        dados_graficoPizza.push(["recuperados", qtRecuperados]);
+    }
+
+desenharGraficoPizza();
+
+}
+
+
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(desenharGraficoPizza);
+
+function desenharGraficoPizza() {
+
+    let data = google.visualization.arrayToDataTable(dados_graficoPizza);
+
+    let options = {
+        title: 'Casos totais de Covid-19'
+    };
+
+    let chart = new google.visualization.PieChart(document.getElementById('grafico-pizza'));
+
+    chart.draw(data, options);
+}
 
 //--------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------ PARA A TABELA -----------------------------------------------------
@@ -131,12 +165,12 @@ function prepararDadosTabela(dados) {
             auxLinha = '<tr>';
 
         auxLinha += '<td>' + dados['data'][i].uf + '</td>' +
-                    '<td>' + dados['data'][i].state + '</td>' +
-                    '<td>' + dados['data'][i].cases + '</td>' +
-                    '<td>' + dados['data'][i].deaths + '</td>' +
-                    '<td>' + dados['data'][i].suspects + '</td>' +
-                    '<td>' + dados['data'][i].refuses + '</td>' +
-                '</tr>';
+            '<td>' + dados['data'][i].state + '</td>' +
+            '<td>' + dados['data'][i].cases + '</td>' +
+            '<td>' + dados['data'][i].deaths + '</td>' +
+            '<td>' + dados['data'][i].suspects + '</td>' +
+            '<td>' + dados['data'][i].refuses + '</td>' +
+            '</tr>';
 
         linhas.innerHTML += auxLinha;
     }
