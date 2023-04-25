@@ -135,4 +135,4 @@ function prepararDadosTabela(dados) {
     }
 }
 
-console.log(dados_tabela)
+console.log(dados_tabela);
