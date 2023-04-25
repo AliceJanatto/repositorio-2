@@ -50,27 +50,7 @@ function prepararDadosMapa(dados) {
 
 }
 
-//--------------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------VARIAVEIS PARA MANTER OS DADOS-----------------------------------------------------------//
-
-var dados_mapamundi = [
-    ['país', 'casos'],
-    ['0', 0]
-];
-
-var dados_graficoPizza = [
-    ['status', 'total'],
-    ['0', 0]
-];
-
-var dados_tabela = [
-    ['estado', 'casos'],
-    ['0', 0]
-];
-
-//--------------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------mapa mundi COVID------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------------------
+//mapa mundi COVID------------------------------------------------------------
 
 google.charts.load('current', {
     'packages': ['geochart'],
@@ -92,6 +72,33 @@ function desenharMapa() {
 //--------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------- GRAFICO DE PIZZA -----------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------
+
+//buscando os dados na API------------------------------//
+async function carregarDadosPizza() {
+
+    //chamar API para obter dados------------------------------//
+    await fetch('https://covid19-brazil-api.now.sh/api/report/v1/countries')
+        .then(response => response.json())      //recebendo a resposta
+        .then(dados => prepararDadosTabela(dados))    //preparando os dados
+        .catch(e => exibirErro(e.mensagem));    //mostrando o erro
+}
+
+
+google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(desenharGraficoPizza);
+
+      function desenharGraficoPizza() {
+
+        let data = google.visualization.arrayToDataTable(dados_graficoPizza);
+
+        let options = {
+          title: 'Casos de Covid-19'
+        };
+
+        let chart = new google.visualization.PieChart(document.getElementById('grafico-pizza'));
+
+        chart.draw(data, options);
+      }
 
 //--------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------ PARA A TABELA -----------------------------------------------------
@@ -136,3 +143,23 @@ function prepararDadosTabela(dados) {
 }
 
 console.log(dados_tabela);
+
+
+//--------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------VARIAVEIS PARA MANTER OS DADOS----------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------
+
+var dados_mapamundi = [
+    ['país', 'casos'],
+    ['0', 0]
+];
+
+var dados_graficoPizza = [
+    ['status', 'total'],
+    ['0', 0]
+];
+
+var dados_tabela = [
+    ['estado', 'casos'],
+    ['0', 0]
+];
