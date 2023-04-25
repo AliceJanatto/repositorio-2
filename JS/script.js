@@ -10,20 +10,20 @@ function exibirErro(mensagem) {
 //------------------------------- dados API: https://covid19-brazil-api-docs.vercel.app/  ----------------------------------
 
 //buscando os dados na API------------------------------//
-async function carregarDados() {
+async function carregarDadosMapa() {
     //ocultando div de erro (se estiver visivel)//
-    let erro = document.getElementById('div-erro');
-    erro.style.display = 'none';
+    let divErro = document.getElementById('div-erro');
+    divErro.style.display = 'none';
 
     //chamar API para obter dados------------------------------//
     await fetch('https://covid19-brazil-api.now.sh/api/report/v1/countries')
         .then(response => response.json())      //recebendo a resposta
-        .then(dados => prepararDados(dados))    //preparando os dados
+        .then(dados => prepararDadosMapa(dados))    //preparando os dados
         .catch(e => exibirErro(e.mensagem));    //mostrando o erro
 }
 
 //função para preparar e exibir os dados adquiridos------------------------------//
-function prepararDados(dados) {
+function prepararDadosMapa(dados) {
     //console.table(dados['data'])
     if (dados['data'].length > 0) {    //só faz alguma coisa se tiver dados
 
@@ -93,86 +93,46 @@ function desenharMapa() {
 //--------------------------------------------------- GRAFICO DE PIZZA -----------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------
 
-google.charts.load('current', { 'packages': ['corechart'] });
-google.charts.setOnLoadCallback(desenharGraficoPizza);
-
-function desenharGraficoPizza() {
-
-    let data = google.visualization.arrayToDataTable(obterDados());
-
-    let options = {
-        title: 'Casos de COVID',
-        is3D: true
-    };
-
-    let chart = new google.visualization.PieChart(document.getElementById('grafico-pizza'));
-
-    chart.draw(data, options);
-}
-
-// Função para simular obtenção de dados
-function obterDados() {
-    let dados = [obterDados()];
-    return dados;
-}
-
 //--------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------ PARA A TABELA -----------------------------------------------------
 //---------------------------------- https://covid19-brazil-api.now.sh/api/report/v1 ---------------------------------------
 
-//buscando os dados na API------------------------------
-async function obterDados() {
-    //ocultando div de erro (se estiver visivel)
-    let erro = document.getElementById('div-erro');
-    erro.style.display = 'none';
+//buscando os dados na API------------------------------//
+async function carregarDadosTabela() {
 
-    //chamar API para obter dados------------------------------
+    //chamar API para obter dados------------------------------//
     await fetch('https://covid19-brazil-api.now.sh/api/report/v1')
         .then(response => response.json())      //recebendo a resposta
-        .then(dados => prepararDados(dados))    //preparando os dados
+        .then(dados => prepararDadosTabela(dados))    //preparando os dados
         .catch(e => exibirErro(e.mensagem));    //mostrando o erro
 }
 
-//função para preparar e exibir os dados adquiridos------------------------------
-function prepararDados(dados) {
-    //console.table(dados['data'])
-    if (dados['data'].length > 0) {    //só faz alguma coisa se tiver dados
+//função para preparar e exibir os dados no HTML
+function prepararDadosTabela(dados) {
 
-        //esvaziando as variáveis de dados
-        dados_tabela = [['Sigla', 'Estado', 'Casos', 'Mortes', 'Suapeitos', 'Descartados']];
+    let linhas = document.getElementById('linhas');
 
-        //variáveis para acumular casos
-        let casos = 0;
+    linhas.innerHTML = '';
 
-        //laço para percorrer todos os dados obtidos
-        for (let i = 0; i < dados['data'].length; i++) {
+    // laço para percorrer todos os dados recebidos
+    for (let i = 0; i < dados['data'].length; i++) {
+        let auxLinha = '';
 
-            //adicionar registro na variável de dados(mapa mundi)
-            dados_tabela.push(
-                [
-                    dados['data'][i].country, dados['data'][i].confirmed
-                ]
-            )
-        }
+        if (i % 2 != 0)
+            auxLinha = '<tr class="listra">';
+        else
+            auxLinha = '<tr>';
+
+        auxLinha += '<td>' + dados['data'][i].uf + '</td>' +
+                    '<td>' + dados['data'][i].state + '</td>' +
+                    '<td>' + dados['data'][i].cases + '</td>' +
+                    '<td>' + dados['data'][i].deaths + '</td>' +
+                    '<td>' + dados['data'][i].suspects + '</td>' +
+                    '<td>' + dados['data'][i].refuses + '</td>' +
+                '</tr>';
+
+        linhas.innerHTML += auxLinha;
     }
 }
 
-let linhas = document.getElementById('linhas');
-
-linhas.innerHTML = '';
-
-// laço para percorrer todos os dados recebidos
-for (let i = 0; i < dados['data'].length; i++) {
-    let auxLinha = '';
-
-    if (i % 2 != 0)
-        auxLinha = '<tr class="listra">';
-    else
-        auxLinha = '<tr>';
-
-    auxLinha += '<td>' + dados['data'][i].id + '</td>' +
-        '<td>' + dados['data'][i].name + '</td>' +
-        '</tr>';
-
-    linhas.innerHTML += auxLinha;
-}
+console.log(dados_tabela)

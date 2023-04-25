@@ -39,8 +39,8 @@
             <h2>Dados da pandemia no mundo:</h2>
 
             <p>
-                <button id="btnObterDados" type="button" onclick="carregarDados();">
-                    Obter dados
+                <button id="btnObterDados" type="button" onclick="carregarDadosMapa();">
+                    Obter dados Mundiais
                 </button>
             </p>
 
@@ -48,21 +48,37 @@
 
         </div>
 
+        <p>
+            <button id="btnObterDados" type="button" onclick="carregarDadosPizza();">
+                Obter dados gerais
+            </button>
+        </p>
+
         <div id="grafico-pizza"></div>
 
-        <table id="tabela-casos">
-            <thead>
-                <tr>
-                    <th>Sigla</th>
-                    <th>Estado</th>
-                    <th>Casos</th>
-                    <th>Mortes</th>
-                    <th>Suspeitos</th>
-                    <th>Descartados</th>
-                </tr>
-            </thead>
-            <tbody id="linhas"></tbody>
-        </table>
+        <h2>Dados da pandemia no Brasil:</h2>
+
+        <p>
+            <button id="btnObterDados" type="button" onclick="carregarDadosTabela();">
+                Obter dados do Brasil
+            </button>
+        </p>
+
+        <div id="tabela">
+            <table id="tabela-casos">
+                <thead>
+                    <tr>
+                        <th>Sigla</th>
+                        <th>Estado</th>
+                        <th>Casos</th>
+                        <th>Mortes</th>
+                        <th>Suspeitos</th>
+                        <th>Descartados</th>
+                    </tr>
+                </thead>
+                <tbody id="linhas"></tbody>
+            </table>
+        </div>
 
     </div>
 </body>
